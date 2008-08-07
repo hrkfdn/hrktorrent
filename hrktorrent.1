@@ -1,0 +1,60 @@
+.\" hrktorrent.1
+.TH hrktorrent 0.3.2
+.SH NAME
+hrktorrent - a slim console torrent application supporting DHT
+.SH SYNOPSIS
+hrktorrent [--options] \fIfile.torrent\fR
+.SH DESCRIPTION
+hrktorrent is a slim rb_torrent based console torrent application supporting DHT.
+.SH OPTIONS
+.fi
+\fB--minport\fR - start port range (default: 6881)
+
+\fB--maxport\fR - end port range (default: 6999)
+
+\fB--maxdown\fR - download speed limit (in kb/s) (default: unlimited)
+
+\fB--maxup\fR - upload speed limit (in kb/s) (default: unlimited)
+
+\fB--nodht\fR - disable dht (default: on)
+
+\fB--noseed\fR - disable seeding (default: on)
+
+\fB--forcereannounce\fR - reannounce every X minutes (default: 2)
+
+\fB--ipfilter\fR - enable ip filtering (default: off)
+
+\fB--verbose\fR - print verbose messages (default: off)
+.nf
+.SH CONFIGURATION FILE
+Any configuration files or files that hrktorrent creates are stored in ~/.hrktorrent
+
+.fi
+\fB~/.hrktorrent/hrktorrent.rc\fR
+
+minport	\fIint\fR  # minimum port
+
+maxport	\fIint\fR  # maximum port
+
+verbose	\fIbool\fR # verbose mode
+
+maxup	\fIint\fR  # max. upload speed
+
+maxdown	\fIint\fR  # max. download speed
+
+dht		\fIbool\fR # dht
+
+seed		\fIbool\fR # seed after finishing downloading
+
+forcereannounce	\fIint\fR  # update peers every X minutes (be careful with this value!)
+
+ipfilter	\fIbool\fR # enable ip filtering
+
+\fBbools have to be set to anything higher than 0 to indicate them as true!\fR
+.nf
+.SH IPFILTER
+To use the IPFilter of libtorrent, you need to provide an ipfilter.dat file and copy it to ~/.hrktorrent/
+.SH EXAMPLE
+hrktorrent --minport6500 --maxport6600 --nodht file.torrent
+.SH AUTHOR
+Henrik Friedrichsen <hrkfrd@gmail.com>

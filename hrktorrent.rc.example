@@ -1,0 +1,13 @@
+# please use only the following scheme
+minport		60100		# minimum port
+maxport		60200		# maximum port
+
+verbose		0		# verbose mode
+
+maxup		10		# max. upload speed
+maxdown		0		# max. download speed
+
+dht		1		# dht
+seed		1		# seed after finishing downloading
+forcereannounce	2		# update peers every X minutes (be careful with this value!)
+ipfilter	1		# enable ip filtering

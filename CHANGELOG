@@ -1,0 +1,67 @@
+hrktorrent changelog:
+
+-----------------------
+0.3.2 [2008-Jun-28]
+-----------------------
+- Fixed the multiple instances with DHT bug
+- DHT now uses public routers to bootstrap (bittorrent.com, bitcomet.com, utorrent.com)
+- Fixed "'add_torrent' is deprecated" warning when compiling
+- Fixed the line-feed problem in consoles
+
+-----------------------
+0.3.1 [2008-Mar-14]
+-----------------------
+- Configuration is now loaded from ~/.hrktorrent/hrktorrent.rc, as well as the ipfilter
+- DHT nodes are now being loaded and saved to the hrktorrent dir
+- Fixed a bug where you could run hrktorrent only once with DHT enabled
+- IPFilter has been improved
+
+-----------------------
+0.3.0 [2007-Dec-24]
+-----------------------
+- Added an IPFilter (loading from ~/.ipfilter.dat) [lots of code by xen, thanks!]
+- Major code cleanups
+
+-----------------------
+0.2.3 [2007-Dec-02]
+-----------------------
+- Added forcereannounce option for speed increasement
+- hrktorrent now sends it's own id (HT)
+- Made the Makefile distribution friendlier (thanks to drac's patch)
+- The amount of uploaded data is now being displayed
+
+-----------------------
+0.2.2 [2007-Nov-25 ]
+-----------------------
+- Added ETA
+- Output will now be truncated with dots, if it is longer than the terminal width
+- tuqs was so kind to write a manpage
+- Changed the Makefile so it doesn't strip the binary anymore
+
+-----------------------
+0.2.1 [2007-Nov-22 ]
+-----------------------
+- Fixed a crash bug [thanks to nico]
+
+-----------------------
+0.2 [ 2007-Nov-22 ]
+-----------------------
+- README written
+- LICENSE added (please please please correct mistakes, I'm not good at this!)
+- Complete rewrite
+- Major code cleanup
+- Config file support (~/.hrktorrent.rc)
+- Rewritten console output
+- DHT enabled
+- 'seed' option
+- 'verbose' option
+- Minor bugfixes
+- Improved commandline switches
+
+-----------------------
+0.1 [ 2007-Nov-18 ]
+-----------------------
+- Initial release
+- Basic torrent downloading with status output
+- Option to define the port range
+- Option to define the maximum upload speed

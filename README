@@ -1,0 +1,21 @@
+<-
+	hrktorrent 0.3.2
+	http://henrik.unit5.ca/hrktorrent/
+	LICENSE: BSD
+	Report bugs to: irc://irc.rizon.net #/dev/null (h1web)
+	
+	Thanks to rasterbar's libtorrent!
+->
+
+To compile hrktorrent you need:
+a) ncurses
+b) boost
+c) asio header files
+d) libtorrent (the one by rasterbar: http://www.rasterbar.com/products/libtorrent/index.html)
+
+To use a config file, put it in your $HOME/.hrktorrent dir and name it "hrktorrent.rc", there is an example included.
+NOTE: Commandline switches override configuration file settings.
+
+For IP-Filtering, make sure it is enabled and copy the ipfilter.dat file to ~/.hrktorrent/ipfilter.dat
+
+Help is available by just running hrktorrent.
