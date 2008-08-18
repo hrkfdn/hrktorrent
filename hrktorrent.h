@@ -9,6 +9,7 @@
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 #include <boost/format.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

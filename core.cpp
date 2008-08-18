@@ -52,6 +52,23 @@ CCore::StatusLoop(void* data)
 	libtorrent::torrent_status tstatus;
 	bool finished = false;
 	int eta = 0, columns = 0, loopcount = 0;
+	bool stdout_is_tty = false;
+
+	stdout_is_tty = (isatty(STDOUT_FILENO) == 1);
+	if (stdout_is_tty) {
+		if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) < 0) {
+			char errbuf[128];
+			std::string errstring;
+
+			strerror_r(errno, errbuf, 128);
+			errstring = "ioctl: ";
+			errstring.append((const char *) errbuf);
+
+			Core->VerbosePrint("Core", errstring);
+		}
+		columns = ws.ws_col;
+	}
+
 
 	while(true) {
 		if(Settings->Get("forcereannounce") > 0 && loopcount >= Settings->Get("forcereannounce")*60) {
@@ -63,9 +80,6 @@ CCore::StatusLoop(void* data)
 		sstatus = s->status();
 		tstatus = t->status();
 		eta = geteta(tstatus.total_done, tstatus.total_wanted, (libtorrent::size_type)sstatus.download_rate);
-		ioctl(1, TIOCGWINSZ, &ws);
-		columns = ws.ws_col;
-
 
 		if(!finished && tstatus.total_wanted != 0 && tstatus.total_done == tstatus.total_wanted) {
 			std::cout << "\nTorrent finished!" << std::endl;
@@ -111,9 +125,25 @@ CCore::StatusLoop(void* data)
 				s_output.append(" ");
 		}
 
-		std::cout << s_output.c_str() << "\r";
-		std::cout.flush();
+		if (stdout_is_tty) {
+			if(s_output.length() > columns) {
+				s_output.resize(columns - 3);
+				s_output.append("..");
+			}
+			else if(s_output.length() < columns) {
+				for(int i = 0; i < s_output.length() - columns; i++)
+					s_output.append(" ");
+			}
+		}
+		if (stdout_is_tty) {
+			std::cout << s_output.c_str() << "\r";
+		}
+		else {
+			std::cout << s_output.c_str() << std::endl;
+		}
 
+	
+		std::cout.flush();
 		output.str("");
 
 		sleep(1);
