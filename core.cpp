@@ -18,7 +18,7 @@ CCore::CCore(int argc, char** argv)
 /* destructor. free/delete garbage! */
 CCore::~CCore()
 {
-	VerbosePrint("Core", "Destructing core!");
+	VerbosePrint("Core", "Destructing core class.");
 	delete _session;
 }
 

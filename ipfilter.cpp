@@ -31,6 +31,11 @@ CIPFilter::CIPFilter()
 	config.close();
 }
 
+CIPFilter::~CIPFilter()
+{
+	Core->VerbosePrint("IPFilter", "Destroying IPFilter class.");
+}
+
 
 bool
 CIPFilter::AddRule(std::string start, std::string end)

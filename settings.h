@@ -5,6 +5,7 @@ class CSettings
 {
 	public:
 		CSettings();
+		~CSettings();
 		void LoadConfig();
 		void ParseLine(std::string line);
 

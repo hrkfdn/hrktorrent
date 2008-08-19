@@ -5,6 +5,7 @@ class CIPFilter
 {
 	public:
 		CIPFilter();
+		~CIPFilter();
 		bool AddRule(std::string start, std::string end);
 		libtorrent::ip_filter getFilter() { return _ipfilter; }
 		bool IsActive() { return (_active == true); }

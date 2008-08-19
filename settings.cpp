@@ -19,6 +19,11 @@ CSettings::CSettings()
 	settings["ipfilter"] = 1;
 }
 
+CSettings::~CSettings()
+{
+	Core->VerbosePrint("Settings", "Destroying Settings class.");
+}
+
 void
 CSettings::LoadConfig()
 {
