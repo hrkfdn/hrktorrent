@@ -59,10 +59,20 @@ parseargs(int argc, char** argv)
 	}
 }
 
+#define CLEAN(x) if(x) delete x
+void
+close()
+{
+	CLEAN(Core);
+	CLEAN(Settings);
+	CLEAN(IPFilter);
+}
 
 int
 main(int argc, char* argv[])
 {
+	atexit(close);
+
 	using namespace std;
 	int runstate = EXIT_FAILURE;
 
