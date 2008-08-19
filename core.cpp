@@ -65,6 +65,7 @@ CCore::StatusLoop(void* data)
 			errstring.append((const char *) errbuf);
 
 			Core->VerbosePrint("Core", errstring);
+			exit(EXIT_FAILURE);
 		}
 		columns = ws.ws_col;
 	}
