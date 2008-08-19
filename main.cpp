@@ -63,9 +63,11 @@ parseargs(int argc, char** argv)
 void
 close()
 {
-	CLEAN(Core);
 	CLEAN(Settings);
 	CLEAN(IPFilter);
+
+	/* make sure this is always the last class to cleanup */
+	CLEAN(Core);
 }
 
 int
