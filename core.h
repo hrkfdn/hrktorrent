@@ -25,6 +25,7 @@ class CCore
 		char** _argv;
 
 		std::ifstream torrentfile;
+		bool _verbose;
 };
 extern CCore* Core;
 

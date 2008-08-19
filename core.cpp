@@ -202,6 +202,7 @@ CCore::saveDHT()
 int
 CCore::Run()
 {
+	_verbose = (Settings->Get("verbose") > 0);
 	VerbosePrint("Core", "Verbose enabled.");
 	VerbosePrint("Core", "Starting torrent session!");
 
@@ -271,7 +272,7 @@ CCore::Run()
 void
 CCore::VerbosePrint(std::string source, std::string message)
 {
-	if(!Settings->Get("verbose")) return;
+	if(!_verbose) return;
 	std::cout << "[" << source << "] ";
 	std::cout << message << std::endl;
 }
