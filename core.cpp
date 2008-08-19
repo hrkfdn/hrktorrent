@@ -19,10 +19,7 @@ CCore::CCore(int argc, char** argv)
 CCore::~CCore()
 {
 	VerbosePrint("Core", "Destructing core!");
-
 	delete _session;
-	delete Settings;
-	delete IPFilter;
 }
 
 unsigned int
@@ -65,7 +62,6 @@ CCore::StatusLoop(void* data)
 			errstring.append((const char *) errbuf);
 
 			Core->VerbosePrint("Core", errstring);
-			delete Core;
 			exit(EXIT_FAILURE);
 		}
 		columns = ws.ws_col;
@@ -87,7 +83,6 @@ CCore::StatusLoop(void* data)
 			std::cout << "\nTorrent finished!" << std::endl;
 			if(Settings->Get("seed") == 0) {
 				statusthread = 0;
-				delete Core;
 				exit(EXIT_SUCCESS);
 			}
 			finished = true;
