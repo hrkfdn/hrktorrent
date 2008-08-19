@@ -85,7 +85,5 @@ main(int argc, char* argv[])
 	parseargs(argc, argv);
 	runstate = Core->Run();
 
-	delete Core;
-
 	return runstate;
 }
