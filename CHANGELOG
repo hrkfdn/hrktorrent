@@ -5,6 +5,7 @@ hrktorrent changelog:
 -----------------------
 - Added Razvan Deaconescu's patch to ignore colum checking when hrktorrent is not being
   run in a tty. Thanks!
+- Improved cleaning up the program
 
 -----------------------
 0.3.2 [2008-Jun-28]
