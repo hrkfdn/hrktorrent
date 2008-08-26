@@ -3,6 +3,8 @@ hrktorrent changelog:
 -----------------------
 0.3.3 [TO BE ESTIMATED]
 -----------------------
+- The CSettings class now supports integers and strings as setting types
+- Added the option "downloaddir" to set the target directory
 - Added Razvan Deaconescu's patch to ignore colum checking when hrktorrent is not being
   run in a tty. Thanks!
 - Improved cleaning up the program
