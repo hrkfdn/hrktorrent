@@ -2,14 +2,14 @@
 minport		60100		# minimum port
 maxport		60200		# maximum port
 
-verbose		0		# verbose mode
+verbose		0			# verbose mode
 
-maxup		10		# max. upload speed
-maxdown		0		# max. download speed
+maxup		10			# max. upload speed
+maxdown		0			# max. download speed
 
-dht		1		# dht
-upnp	1		# upnp port lookup
-seed		1		# seed after finishing downloading
+dht		1				# dht
+upnp	1				# upnp port lookup
+seed		1			# seed after finishing downloading
 forcereannounce	2		# update peers every X minutes (be careful with this value!)
-ipfilter	1		# enable ip filtering
+ipfilter	1			# enable ip filtering
 downloaddir ~/incoming	# set default download dir
