@@ -227,7 +227,13 @@ CCore::Run()
 
 	try {
 		libtorrent::torrent_info *info = new libtorrent::torrent_info(e);
-		_torrent = _session->add_torrent(info, "");
+		boost::filesystem::path p(Settings->GetS("downloaddir"));
+		boost::filesystem::create_directory(p);
+		if(!boost::filesystem::exists(p)) {
+			std::cerr << "Download directory does not exist/could not be created." << std::endl;
+			return EXIT_FAILURE;
+		}
+		_torrent = _session->add_torrent(info, p);
 	}
 	catch(std::exception& e) {
 		std::cerr << "Corrupted torrent file." << std::endl;
