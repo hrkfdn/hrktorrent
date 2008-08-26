@@ -209,6 +209,10 @@ CCore::Run()
 	IPFilter = new CIPFilter();
 
 	_session = new libtorrent::session(libtorrent::fingerprint("HT", MAJOR, MINOR, REVISION, TAG));
+
+	if(Settings->GetI("upnp") > 0)
+		_session->start_upnp();
+
 	_session->listen_on(std::make_pair(Settings->GetI("minport"), Settings->GetI("maxport")));
 
 	if(Settings->GetI("maxup") > 0)
