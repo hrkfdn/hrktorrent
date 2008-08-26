@@ -50,10 +50,18 @@ parseargs(int argc, char** argv)
 
 		parg += 2;
 
-		std::map<std::string, setting_t*>::iterator it;
+		std::map<std::string, setting_t>::iterator it;
 		for(it = Settings->getSettingMap()->begin(); it != Settings->getSettingMap()->end(); it++) {
 			if(strstr(parg, it->first.c_str())) {
-				it->second->ival = atoi(parg + strlen(it->first.c_str()));
+				char* val = parg + strlen(it->first.c_str());
+				switch(it->second.type) {
+					case TYPE_INT:
+						it->second.ival = atoi(val);
+						break;
+					case TYPE_STRING:
+						it->second.sval = val;
+						break;
+				}
 			}
 		}
 	}
