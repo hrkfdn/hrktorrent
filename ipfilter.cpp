@@ -4,7 +4,7 @@ CIPFilter* IPFilter = 0;
 
 CIPFilter::CIPFilter()
 {
-	if(!Settings->Get("ipfilter")) {
+	if(!Settings->GetI("ipfilter")) {
 		_active = false;
 		return;
 	}

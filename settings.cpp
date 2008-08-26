@@ -5,18 +5,18 @@ CSettings* Settings = 0;
 CSettings::CSettings()
 {
 	/* apply default settings */
-	settings["verbose"] = 1;
+	Set("verbose", 1);
 
-	settings["minport"] = 6881;
-	settings["maxport"] = 6999;
+	Set("minport", 6881);
+	Set("maxport", 6999);
 
-	settings["maxup"] = 0;
-	settings["maxdown"] = 0;
+	Set("maxup", 0);
+	Set("maxdown", 0);
 
-	settings["dht"] = 1;
-	settings["seed"] = 1;
-	settings["forcereannounce"] = 2;
-	settings["ipfilter"] = 1;
+	Set("dht", 1);
+	Set("seed", 1);
+	Set("forcereannounce", 2);
+	Set("ipfilter", 1);
 }
 
 CSettings::~CSettings()
@@ -65,6 +65,6 @@ CSettings::ParseLine(std::string line)
 	linestream >> value;
 	if(var.empty()) return;
 
-	settings[var] = atoi(value.c_str());
+	Set(var, atoi(value.c_str()));
 }
 

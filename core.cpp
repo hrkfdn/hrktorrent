@@ -69,7 +69,7 @@ CCore::StatusLoop(void* data)
 
 
 	while(true) {
-		if(Settings->Get("forcereannounce") > 0 && loopcount >= Settings->Get("forcereannounce")*60) {
+		if(Settings->GetI("forcereannounce") > 0 && loopcount >= Settings->GetI("forcereannounce")*60) {
 			loopcount = 0;
 			t->force_reannounce();
 			Core->VerbosePrint("Core", "Reannouncing!\n");
@@ -81,7 +81,7 @@ CCore::StatusLoop(void* data)
 
 		if(!finished && tstatus.total_wanted != 0 && tstatus.total_done == tstatus.total_wanted) {
 			std::cout << "\nTorrent finished!" << std::endl;
-			if(Settings->Get("seed") == 0) {
+			if(Settings->GetI("seed") == 0) {
 				statusthread = 0;
 				exit(EXIT_SUCCESS);
 			}
@@ -89,7 +89,7 @@ CCore::StatusLoop(void* data)
 		}
 
 		output << "ps: " << sstatus.num_peers;
-		if(Settings->Get("dht") > 0) 
+		if(Settings->GetI("dht") > 0) 
 			output << ", dht: " << sstatus.dht_nodes;
 		output << " <> ";
 		output << "dl: " << Round(sstatus.download_rate/1024, 2) << "kb/s, ";
@@ -202,19 +202,19 @@ CCore::saveDHT()
 int
 CCore::Run()
 {
-	_verbose = (Settings->Get("verbose") > 0);
+	_verbose = (Settings->GetI("verbose") > 0);
 	VerbosePrint("Core", "Verbose enabled.");
 	VerbosePrint("Core", "Starting torrent session!");
 
 	IPFilter = new CIPFilter();
 
 	_session = new libtorrent::session(libtorrent::fingerprint("HT", MAJOR, MINOR, REVISION, TAG));
-	_session->listen_on(std::make_pair(Settings->Get("minport"), Settings->Get("maxport")));
+	_session->listen_on(std::make_pair(Settings->GetI("minport"), Settings->GetI("maxport")));
 
-	if(Settings->Get("maxup") > 0)
-		_session->set_upload_rate_limit(Settings->Get("maxup")*1024);
-	if(Settings->Get("maxdown") > 0)
-		_session->set_download_rate_limit(Settings->Get("maxdown")*1024);
+	if(Settings->GetI("maxup") > 0)
+		_session->set_upload_rate_limit(Settings->GetI("maxup")*1024);
+	if(Settings->GetI("maxdown") > 0)
+		_session->set_download_rate_limit(Settings->GetI("maxdown")*1024);
 
 	torrentfile.open(_argv[_argc-1], std::ios_base::binary);
 	if(!torrentfile.is_open()) {
@@ -234,7 +234,7 @@ CCore::Run()
 		return EXIT_FAILURE;
 	}
 	
-	if(Settings->Get("dht") > 0) {
+	if(Settings->GetI("dht") > 0) {
 		VerbosePrint("Core", "Starting DHT.");
 		libtorrent::dht_settings dset;
 		dset.service_port = _session->listen_port();
@@ -247,7 +247,7 @@ CCore::Run()
 		_session->add_dht_router(std::make_pair(std::string("router.bitcomet.com"), 6881));
 	}
 
-	if(Settings->Get("ipfilter") > 0 && IPFilter->IsActive()) {
+	if(Settings->GetI("ipfilter") > 0 && IPFilter->IsActive()) {
 		_session->set_ip_filter(IPFilter->getFilter());
 	}
 
@@ -258,7 +258,7 @@ CCore::Run()
 	std::cin.unsetf(std::ios_base::skipws);
 	std::cin >> input;
 
-	if(Settings->Get("dht") > 0) {
+	if(Settings->GetI("dht") > 0) {
 		saveDHT();
 		_session->stop_dht();
 	}
