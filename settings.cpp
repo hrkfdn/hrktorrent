@@ -14,6 +14,7 @@ CSettings::CSettings()
 	Set("maxdown", 0);
 
 	Set("dht", 1);
+	Set("upnp", 1);
 	Set("seed", 1);
 	Set("forcereannounce", 2);
 	Set("ipfilter", 1);
