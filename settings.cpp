@@ -17,6 +17,8 @@ CSettings::CSettings()
 	Set("seed", 1);
 	Set("forcereannounce", 2);
 	Set("ipfilter", 1);
+
+	Set("downloaddir", ".");
 }
 
 CSettings::~CSettings()
