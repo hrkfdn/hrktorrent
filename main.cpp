@@ -16,6 +16,7 @@ printusage()
 	std::cout << "\t--nodht\t\t\t- disable dht (default: on)\n";
 	std::cout << "\t--noseed\t\t- disable seeding (default: on)\n";
 	std::cout << "\t--forcereannounce\t- reannounce every X minutes (default: 2)\n";
+	std::cout << "\t--downloaddir\t- set the target directory (default: .)\n";
 	std::cout << "\t--ipfilter\t\t- enable ip filtering (default: off)\n\n";
 	std::cout << "\t--verbose\t\t- print verbose messages (default: off)\n\n";
 
