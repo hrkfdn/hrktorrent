@@ -11,3 +11,4 @@ dht		1		# dht
 seed		1		# seed after finishing downloading
 forcereannounce	2		# update peers every X minutes (be careful with this value!)
 ipfilter	1		# enable ip filtering
+downloaddir ~/incoming	# set default download dir
