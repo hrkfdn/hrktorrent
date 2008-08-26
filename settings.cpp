@@ -67,6 +67,13 @@ CSettings::ParseLine(std::string line)
 	linestream >> value;
 	if(var.empty()) return;
 
-	Set(var, atoi(value.c_str()));
+	switch(settings[var].type) {
+		case TYPE_INT:
+			Set(var, atoi(value.c_str()));
+			break;
+		case TYPE_STRING:
+			Set(var, value);
+			break;
+	}
 }
 
