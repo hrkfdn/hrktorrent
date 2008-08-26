@@ -18,17 +18,17 @@ class CSettings
 		void LoadConfig();
 		void ParseLine(std::string line);
 
-		inline void Set(std::string name, int ival) { settings[name]->type = TYPE_INT; settings[name]->ival = ival; }
-		inline void Set(std::string name, std::string sval) { settings[name]->type = TYPE_STRING; settings[name]->sval = sval; }
+		void Set(std::string name, int ival) { settings[name].type = TYPE_INT; settings[name].ival = ival; }
+		void Set(std::string name, std::string sval) { settings[name].type = TYPE_STRING; settings[name].sval = sval; }
 
-		int GetI(std::string name) { return settings[name]->ival; }
-		std::string GetS(std::string name) { return settings[name]->sval; }
+		int GetI(std::string name) { return settings[name].ival; }
+		std::string GetS(std::string name) { return settings[name].sval; }
 
 		inline std::string* getDir() { return &_dir; }
 
-		inline std::map<std::string, setting_t*>* getSettingMap() { return &settings; }
+		inline std::map<std::string, setting_t>* getSettingMap() { return &settings; }
 	private:
-		std::map<std::string, setting_t*> settings;
+		std::map<std::string, setting_t> settings;
 		std::string _dir;
 };
 extern CSettings* Settings;
