@@ -240,7 +240,7 @@ CCore::Run()
 		_torrent = _session->add_torrent(info, p);
 	}
 	catch(std::exception& e) {
-		std::cerr << "Corrupted torrent file." << std::endl;
+		std::cerr << "Corrupted torrent file. (" << e.what() <<")" << std::endl;
 		return EXIT_FAILURE;
 	}
 	
