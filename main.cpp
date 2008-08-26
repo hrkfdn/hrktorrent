@@ -14,6 +14,7 @@ printusage()
 	std::cout << "\t--maxup\t\t\t- upload speed limit (in kb/s) (default: unlimited)\n";
 
 	std::cout << "\t--nodht\t\t\t- disable dht (default: on)\n";
+	std::cout << "\t--noupnp\t\t\t- disable upnp (default: on)\n";
 	std::cout << "\t--noseed\t\t- disable seeding (default: on)\n";
 	std::cout << "\t--forcereannounce\t- reannounce every X minutes (default: 2)\n";
 	std::cout << "\t--downloaddir\t- set the target directory (default: .)\n";
@@ -37,6 +38,10 @@ parseargs(int argc, char** argv)
 		}
 		else if(strstr(parg, "--nodht")) {
 			Settings->Set("dht", 0);
+			continue;
+		}
+		else if(strstr(parg, "--noupnp")) {
+			Settings->Set("upnp", 0);
 			continue;
 		}
 		else if(strstr(parg, "--verbose")) {
