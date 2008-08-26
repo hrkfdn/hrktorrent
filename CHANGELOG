@@ -1,7 +1,7 @@
 hrktorrent changelog:
 
 -----------------------
-0.3.3 [TO BE ESTIMATED]
+0.3.3 [2008-Aug-26]
 -----------------------
 - The CSettings class now supports integers and strings as setting types
 - Added the option "downloaddir" to set the target directory
@@ -10,6 +10,7 @@ hrktorrent changelog:
 - Improved cleaning up the program
 - Fixed the Makefile
 - More verbosity
+- Support libtorrent's UPnP implementation
 
 -----------------------
 0.3.2 [2008-Jun-28]
