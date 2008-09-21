@@ -28,6 +28,10 @@ CIPFilter::CIPFilter()
 		ParseFilterLine(line);
 	}
 
+	libtorrent::ip_filter::filter_tuple_t filters = _ipfilter.export_filter();
+	unsigned entrycount = filters.get<0>().size() + filters.get<1>().size();
+	std::cout << entrycount << " entries imported." << std::endl;
+
 	config.close();
 }
 
