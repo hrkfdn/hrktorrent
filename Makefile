@@ -2,11 +2,13 @@ include vars.mk
 
 all: $(OUT)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+.cpp.o:
+	@echo [CXX] $<
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OUT): $(OBJ)
-	$(CXX) $(LDFLAGS) $(OBJ) $(LIBS) -o $(OUT)
+	@echo [LD] $@
+	@$(CXX) $(LDFLAGS) $(OBJ) $(LIBS) -o $(OUT)
 
 clean:
 	-rm -rf $(OBJ) $(OUT) *~
