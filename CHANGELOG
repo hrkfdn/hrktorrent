@@ -1,6 +1,15 @@
 hrktorrent changelog:
 
 -----------------------
+0.3.4 [TBA]
+-----------------------
+- Print the count of imported ipfilter.dat entries
+- Continue processing after error (Razvan Deaconescu)
+- Use std::cout for debug messages in constructor (Razvan Deaconescu)
+- Use ctrl+c for termination and fix another bug (Razvan Deaconescu)
+- Make 'make' output prettier
+
+-----------------------
 0.3.3 [2008-Aug-26]
 -----------------------
 - The CSettings class now supports integers and strings as setting types
