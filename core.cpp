@@ -55,13 +55,10 @@ CCore::StatusLoop(void* data)
 	if (stdout_is_tty) {
 		if(ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) < 0) {
 			char errbuf[128];
-			std::string errstring;
 
 			strerror_r(errno, errbuf, 128);
-			errstring = "ioctl: ";
-			errstring.append((const char *) errbuf);
+			std::cerr << "ioctl error: " << errbuf << std::endl;
 
-			Core->VerbosePrint("Core", errstring);
 			exit(EXIT_FAILURE);
 		}
 		columns = ws.ws_col;
@@ -112,15 +109,6 @@ CCore::StatusLoop(void* data)
 		}
 		output << eta << "s";
 		s_output = output.str();
-
-		if(s_output.length() > columns) {
-			s_output.resize(columns - 3);
-			s_output.append("..");
-		}
-		else if(s_output.length() < columns) {
-			for(int i = 0; i < s_output.length() - columns; i++)
-				s_output.append(" ");
-		}
 
 		if (stdout_is_tty) {
 			if(s_output.length() > columns) {
@@ -199,6 +187,31 @@ CCore::saveDHT()
 	nodefile.close();
 }
 
+static void
+SignalHandler(int signo)
+{
+	Core->VerbosePrint("Core", "Received signal.");
+}
+
+void
+CCore::ScheduleSignal(int signo)
+{
+	struct sigaction sa;
+
+	memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = SignalHandler;
+	sa.sa_flags = SA_RESETHAND;
+
+	if (sigaction(signo, &sa, NULL) < 0) {
+		char errbuf[128];
+
+		strerror_r(errno, errbuf, 128);
+
+		std::cerr << "sigaction error: " << errbuf << std::endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
 int
 CCore::Run()
 {
@@ -261,12 +274,23 @@ CCore::Run()
 		_session->set_ip_filter(IPFilter->getFilter());
 	}
 
-	std::cout << "\"Return\" shuts hrktorrent down.\n" <<  std::endl;
+	ScheduleSignal(SIGINT);
+	std::cout << "\"CTRL-C\" shuts hrktorrent down.\n" <<  std::endl;
+
 	pthread_create(&statusthread, NULL, StatusLoop, NULL);
 
+	/*
+	 * reading stdin does not work with output redirection or running the
+	 * program in background
+	 */
+	/*
 	char input;
 	std::cin.unsetf(std::ios_base::skipws);
 	std::cin >> input;
+	*/
+
+	/* wait for signal */
+	pause();
 
 	if(Settings->GetI("dht") > 0) {
 		saveDHT();

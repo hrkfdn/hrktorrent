@@ -20,6 +20,7 @@ class CCore
 
 		void loadDHT();
 		void saveDHT();
+		void ScheduleSignal(int signo);
 
 		int _argc;
 		char** _argv;
