@@ -38,7 +38,11 @@ CSettings::LoadConfig()
 
 	std::ifstream config(path.c_str(), std::ifstream::in);
 	if(!config.is_open()) {
-		Core->VerbosePrint("Settings", "Could not load config file. Will use default values.");
+		/* workaround: Core->VerbosePrint uses non-initialized Core */
+		std::cout << "[Settings] Could not load config file. Will use default values." << std::endl;
+
+		/* cannot do: Core may not be properly initialized */
+		/* Core->VerbosePrint("Settings", "Could not load config file. Will use default values.");*/
 		return;
 	}
 
