@@ -23,7 +23,7 @@ CCore::~CCore()
 }
 
 unsigned int
-geteta(libtorrent::size_type done, libtorrent::size_type wanted, libtorrent::size_type downspeed)
+GetETA(libtorrent::size_type done, libtorrent::size_type wanted, libtorrent::size_type downspeed)
 {
 	libtorrent::size_type delta = wanted - done;
 	if(downspeed > 0)
@@ -42,8 +42,8 @@ CCore::StatusLoop(void* data)
 	
 	struct winsize ws;
 
-	libtorrent::session* s = Core->getSession();
-	libtorrent::torrent_handle* t = Core->getTorrent();
+	libtorrent::session* s = Core->GetSession();
+	libtorrent::torrent_handle* t = Core->GetTorrent();
 
 	libtorrent::session_status sstatus;
 	libtorrent::torrent_status tstatus;
@@ -74,7 +74,7 @@ CCore::StatusLoop(void* data)
 
 		sstatus = s->status();
 		tstatus = t->status();
-		eta = geteta(tstatus.total_done, tstatus.total_wanted, (libtorrent::size_type)sstatus.download_rate);
+		eta = GetETA(tstatus.total_done, tstatus.total_wanted, (libtorrent::size_type)sstatus.download_rate);
 
 		if(!finished && tstatus.total_wanted != 0 && tstatus.total_done == tstatus.total_wanted) {
 			std::cout << "\nTorrent finished!" << std::endl;
@@ -139,7 +139,7 @@ CCore::StatusLoop(void* data)
 }
 
 void
-CCore::loadDHT()
+CCore::LoadDHT()
 {
 	std::string path = *Settings->getDir();
 	path.append("dhtnodes");
@@ -168,7 +168,7 @@ CCore::loadDHT()
 }
 
 void
-CCore::saveDHT()
+CCore::SaveDHT()
 {
 	std::string path = *Settings->getDir();
 	path.append("dhtnodes");
@@ -262,7 +262,7 @@ CCore::Run()
 		libtorrent::dht_settings dset;
 		dset.service_port = _session->listen_port();
 		_session->set_dht_settings(dset);
-		loadDHT();
+		LoadDHT();
 
 		// known dht routers for bootstrapping
 		_session->add_dht_router(std::make_pair(std::string("router.bittorrent.com"), 6881));
@@ -293,7 +293,7 @@ CCore::Run()
 	pause();
 
 	if(Settings->GetI("dht") > 0) {
-		saveDHT();
+		SaveDHT();
 		_session->stop_dht();
 	}
 

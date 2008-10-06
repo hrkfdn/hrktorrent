@@ -12,14 +12,14 @@ class CCore
 		void VerbosePrint(std::string source, std::string message);
 		static void* StatusLoop(void* data);
 
-		inline libtorrent::session* getSession() { return _session; }
-		inline libtorrent::torrent_handle* getTorrent() { return &_torrent; }
+		inline libtorrent::session* GetSession() { return _session; }
+		inline libtorrent::torrent_handle* GetTorrent() { return &_torrent; }
 	private:
 		libtorrent::session* _session;
 		libtorrent::torrent_handle _torrent; // TODO: multiple torrents?
 
-		void loadDHT();
-		void saveDHT();
+		void LoadDHT();
+		void SaveDHT();
 		void ScheduleSignal(int signo);
 
 		int _argc;
