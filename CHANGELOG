@@ -3,6 +3,7 @@ hrktorrent changelog:
 -----------------------
 0.3.4 [TBA]
 -----------------------
+- Adopt code to style guidelines (James Munro)
 - Print the count of imported ipfilter.dat entries
 - Continue processing after error (Razvan Deaconescu)
 - Use std::cout for debug messages in constructor (Razvan Deaconescu)
