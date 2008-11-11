@@ -29,7 +29,7 @@ CIPFilter::CIPFilter()
 	}
 
 	libtorrent::ip_filter::filter_tuple_t filters = _ipfilter.export_filter();
-	unsigned entrycount = filters.get<0>().size() + filters.get<1>().size();
+	unsigned int entrycount = filters.get<0>().size() + filters.get<1>().size();
 	std::cout << entrycount << " entries imported." << std::endl;
 
 	config.close();
@@ -47,8 +47,12 @@ CIPFilter::AddRule(std::string start, std::string end)
 	if(start.empty() || end.empty() || !_active) return false;
 
 	libtorrent::address astart, aend;
-	astart = libtorrent::address::from_string(start);
-	aend = libtorrent::address::from_string(end);
+	try {
+		astart = libtorrent::address::from_string(start);
+		aend = libtorrent::address::from_string(end);
+	} catch(asio::system_error& e) {
+		return false; // invalid rule
+	}
 
 	try {
 		_ipfilter.add_rule(astart, aend, libtorrent::ip_filter::blocked);
@@ -57,19 +61,6 @@ CIPFilter::AddRule(std::string start, std::string end)
 	}
 
 	return true;
-}
-
-std::string
-CIPFilter::MakeValidIP(std::string ip)
-{
-	std::stringstream out;
-    for(int i = 0; i < 4; i++) {
-		const char* substr = ip.substr(i*3 + i, 3).c_str();
-		out << atoi(substr);
-		if(i < 3)
-			out << ".";
-	}
-    return out.str();
 }
 
 void
@@ -90,9 +81,6 @@ CIPFilter::ParseFilterLine(std::string line)
 	end.erase(0,loc+2);
 	end.resize(loc-1);
 
-	std::string new_start = MakeValidIP(start);
-	std::string new_end = MakeValidIP(end);
-
-	if(!AddRule(new_start,new_end))
+	if(!AddRule(start,end))
 		Core->VerbosePrint("Settings", "Error adding line to ip filter.");
 }

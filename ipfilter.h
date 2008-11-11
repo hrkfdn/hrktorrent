@@ -12,7 +12,6 @@ class CIPFilter
 
 	private:
 		void ParseFilterLine(std::string line);
-		std::string MakeValidIP(std::string ip);
 		libtorrent::ip_filter _ipfilter;
 
 		bool _active;
