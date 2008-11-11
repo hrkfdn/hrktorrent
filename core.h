@@ -14,7 +14,9 @@ class CCore
 
 		inline libtorrent::session* GetSession() { return _session; }
 		inline libtorrent::torrent_handle* GetTorrent() { return &_torrent; }
+		inline bool isRunning() { return _running == true; }
 	private:
+		bool _running;
 		libtorrent::session* _session;
 		libtorrent::torrent_handle _torrent; // TODO: multiple torrents?
 

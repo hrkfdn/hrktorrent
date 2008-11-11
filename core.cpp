@@ -8,6 +8,7 @@ CCore::CCore(int argc, char** argv)
 {
 	_argc = argc;
 	_argv = argv;
+	_running = true;
 
 	Settings = new CSettings();
 	std::cout << "Initializing " << APPNAME << " " << VERSION << std::endl;
@@ -65,7 +66,7 @@ CCore::StatusLoop(void* data)
 	}
 
 
-	while(true) {
+	while(Core->isRunning()) {
 		if(Settings->GetI("forcereannounce") > 0 && loopcount >= Settings->GetI("forcereannounce")*60) {
 			loopcount = 0;
 			t->force_reannounce();
@@ -191,6 +192,7 @@ static void
 SignalHandler(int signo)
 {
 	Core->VerbosePrint("Core", "Received signal.");
+	Core->Shutdown();
 }
 
 void
@@ -210,6 +212,21 @@ CCore::ScheduleSignal(int signo)
 		std::cerr << "sigaction error: " << errbuf << std::endl;
 		exit(EXIT_FAILURE);
 	}
+}
+
+void
+CCore::Shutdown()
+{
+	_running = false;
+	if(Settings->GetI("dht") > 0) {
+		SaveDHT();
+		_session->stop_dht();
+	}
+
+	if(statusthread) pthread_cancel(statusthread);
+	std::cout << "\nShutting down hrktorrent. Please wait." << std::endl;
+
+	exit(EXIT_SUCCESS);
 }
 
 int
@@ -292,15 +309,7 @@ CCore::Run()
 	/* wait for signal */
 	pause();
 
-	if(Settings->GetI("dht") > 0) {
-		SaveDHT();
-		_session->stop_dht();
-	}
-
-	if(statusthread) pthread_cancel(statusthread);
-	std::cout << "\nShutting down hrktorrent. Please wait." << std::endl;
-
-	return EXIT_SUCCESS;
+	Shutdown();
 }
 
 void
