@@ -256,8 +256,16 @@ CCore::Run()
 		return EXIT_FAILURE;
 	}
 	torrentfile.unsetf(std::ios_base::skipws);
-	libtorrent::entry e = libtorrent::bdecode(std::istream_iterator<char>(torrentfile),
-											  std::istream_iterator<char>());
+
+
+	libtorrent::entry e;
+	try {
+		e = libtorrent::bdecode(std::istream_iterator<char>(torrentfile),
+				std::istream_iterator<char>());
+	} catch(std::exception& e) {
+		std::cerr << "Could not decode torrent (" << e.what() << ")" << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	try {
 		libtorrent::torrent_info *info = new libtorrent::torrent_info(e);
@@ -268,8 +276,7 @@ CCore::Run()
 			return EXIT_FAILURE;
 		}
 		_torrent = _session->add_torrent(info, p);
-	}
-	catch(std::exception& e) {
+	} catch(std::exception& e) {
 		std::cerr << "Could not add torrent (" << e.what() <<")" << std::endl;
 		return EXIT_FAILURE;
 	}
