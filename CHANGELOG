@@ -1,6 +1,17 @@
 hrktorrent changelog:
 
 -----------------------
+0.3.5 [2009-Aug-14]
+-----------------------
+- Actually terminate hrktorrent on CTRL+C
+- Better rule parsing, bugfix and speedup
+- Improved exception handling
+- Use libtorrent-rasterbar pkg-config package
+- Get rid of deprecated function references, comply to latest libtorrent
+  standards
+
+
+-----------------------
 0.3.4 [2008-Oct-21]
 -----------------------
 - Adopt code to style guidelines (James Munro)
