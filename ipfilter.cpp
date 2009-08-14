@@ -50,7 +50,7 @@ CIPFilter::AddRule(std::string start, std::string end)
 	try {
 		astart = libtorrent::address::from_string(start);
 		aend = libtorrent::address::from_string(end);
-	} catch(asio::system_error& e) {
+	} catch(boost::system::system_error& e) {
 		return false; // invalid rule
 	}
 

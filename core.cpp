@@ -250,32 +250,22 @@ CCore::Run()
 	if(Settings->GetI("maxdown") > 0)
 		_session->set_download_rate_limit(Settings->GetI("maxdown")*1024);
 
-	torrentfile.open(_argv[_argc-1], std::ios_base::binary);
-	if(!torrentfile.is_open()) {
-		std::cerr << "Could not open the torrent file!" << std::endl;
-		return EXIT_FAILURE;
-	}
-	torrentfile.unsetf(std::ios_base::skipws);
-
-
-	libtorrent::entry e;
 	try {
-		e = libtorrent::bdecode(std::istream_iterator<char>(torrentfile),
-				std::istream_iterator<char>());
-	} catch(std::exception& e) {
-		std::cerr << "Could not decode torrent (" << e.what() << ")" << std::endl;
-		return EXIT_FAILURE;
-	}
+		libtorrent::add_torrent_params parms;
 
-	try {
-		libtorrent::torrent_info *info = new libtorrent::torrent_info(e);
+		boost::intrusive_ptr<libtorrent::torrent_info> info = new libtorrent::torrent_info(_argv[_argc-1]);
 		boost::filesystem::path p(Settings->GetS("downloaddir"));
 		boost::filesystem::create_directory(p);
 		if(!boost::filesystem::exists(p)) {
 			std::cerr << "Download directory does not exist/could not be created." << std::endl;
 			return EXIT_FAILURE;
 		}
-		_torrent = _session->add_torrent(info, p);
+
+		parms.save_path = p;
+		parms.ti = info;
+		parms.paused = false;
+
+		_torrent = _session->add_torrent(parms);
 	} catch(std::exception& e) {
 		std::cerr << "Could not add torrent (" << e.what() <<")" << std::endl;
 		return EXIT_FAILURE;
