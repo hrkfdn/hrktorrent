@@ -3,7 +3,7 @@
 void
 printusage()
 {
-	std::cout << APPNAME << " " << VERSION << " by h1web (henrik [AT] cheat-project.com) and other contributors\n";
+	std::cout << APPNAME << " " << VERSION << " by hrkfdn (hrkfdn A T gmail D O T com) and other contributors\n";
 	std::cout << "usage: " << APPNAME << " [options] torrent-file\n";
 	std::cout << "NOTE: options provided by the commandline override configuration file entries!\n\n";
 

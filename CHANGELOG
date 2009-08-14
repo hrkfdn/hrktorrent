@@ -3,6 +3,7 @@ hrktorrent changelog:
 -----------------------
 0.3.5 [2009-Aug-14]
 -----------------------
+- Updated author name and email address
 - Actually terminate hrktorrent on CTRL+C
 - Better rule parsing, bugfix and speedup
 - Improved exception handling
