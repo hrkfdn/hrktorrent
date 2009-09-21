@@ -1,6 +1,12 @@
 hrktorrent changelog:
 
 -----------------------
+0.3.6 [TBA]
+-----------------------
+- Fix crash caused by improper exception handling
+- Update mail address in manpage
+
+-----------------------
 0.3.5 [2009-Aug-14]
 -----------------------
 - Updated author name and email address
