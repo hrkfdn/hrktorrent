@@ -87,9 +87,9 @@ CCore::StatusLoop(void* data)
 		output << "uld: " << sstatus.total_payload_upload/1048576 << "mb, ";
 		output << "size: " << tstatus.total_wanted/1048576 << "mb <> ";
 		output << "eta: ";
-		if(eta > 216000) {
-			output << eta/216000 << "d ";
-			eta -= (eta/216000)*216000;
+		if(eta > 86400) {
+			output << eta/86400 << "d ";
+			eta -= (eta/86400)*86400;
 		}
 		if(eta > 3600) {
 			output << eta/3600 << "h ";
