@@ -144,7 +144,7 @@ CCore::LoadDHT()
 {
 	std::string path = *Settings->getDir();
 	path.append("dhtnodes");
-	
+
 	std::ifstream nodefile(path.c_str(), std::ios_base::binary);
 	if(!nodefile.is_open()) {
 		mkdir(Settings->getDir()->c_str(), 0755);
@@ -157,8 +157,9 @@ CCore::LoadDHT()
 
 	try {
 		libtorrent::entry state = libtorrent::bdecode(std::istream_iterator<char>(nodefile),
-													  std::istream_iterator<char>());
-		_session->start_dht(state);
+								  std::istream_iterator<char>());
+		_session->load_state(state);
+		_session->start_dht();
 		VerbosePrint("DHT", "DHT started with a nodefile.");
 	}
 	catch(std::exception& e) {
@@ -182,7 +183,8 @@ CCore::SaveDHT()
 
 	nodefile.unsetf(std::ios_base::skipws);
 
-	libtorrent::entry state = _session->dht_state();
+	libtorrent::entry state;
+	_session->save_state(state, libtorrent::session::save_dht_state);
 	libtorrent::bencode(std::ostream_iterator<char>(nodefile), state);
 	VerbosePrint("DHT", "Saved nodes.");
 	nodefile.close();
