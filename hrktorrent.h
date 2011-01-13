@@ -21,6 +21,7 @@
 #include <libtorrent/session.hpp>
 #include <libtorrent/session_settings.hpp>
 #include <libtorrent/ip_filter.hpp>
+#include <libtorrent/error_code.hpp>
 
 #include "version.h"
 #include "core.h"
