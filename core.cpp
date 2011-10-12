@@ -1,3 +1,4 @@
+#include <signal.h>
 #include "hrktorrent.h"
 
 CCore* Core = 0;

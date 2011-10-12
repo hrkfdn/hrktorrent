@@ -5,6 +5,8 @@ hrktorrent changelog:
 -----------------------
 - Fix crash caused by improper exception handling
 - Update mail address in manpage
+- Added missing include in core.cpp (signal.h)
+- Added 're' rule in Makefile
 
 -----------------------
 0.3.5 [2009-Aug-14]
