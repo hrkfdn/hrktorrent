@@ -13,6 +13,8 @@ $(OUT): $(OBJ)
 clean:
 	-rm -rf $(OBJ) $(OUT) *~
 
+re:	clean all
+
 install: all
 	@install hrktorrent ${PREFIX}/bin
 	@mkdir -p ${PREFIX}/share/examples/hrktorrent
