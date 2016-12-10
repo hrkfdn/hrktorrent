@@ -4,5 +4,5 @@ CXX?		= g++
 OBJ		= main.o core.o settings.o utils.o ipfilter.o
 OUT		= hrktorrent
 CXXFLAGS	+= `pkg-config --cflags libtorrent-rasterbar`
-LIBS		= `pkg-config --libs libtorrent-rasterbar` -lpthread
+LIBS		= `pkg-config --libs libtorrent-rasterbar` -lboost_filesystem -lpthread
 
